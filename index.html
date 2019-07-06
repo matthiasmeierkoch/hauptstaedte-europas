@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="./styles.css" />
-  <title>Capitals of Europe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles.css"/>
+    <title>Capitals of Europe</title>
 </head>
+
 <body>
-  <div id="viz"></div>
-  <p>Die Karte zeigt dass Paris mehr Einwohner als Lodon hat.</p>
-  <p>Die meisten Einwohner hat Moskau, Russland</p>
-  Madrid ist die 4. grösste Hauptstadt Europas.
-  <script src="https://unpkg.com/d3@5.9.7/dist/d3.min.js"></script>
-  <script src="https://unpkg.com/d3-geo@1.11.6/dist/d3-geo.min.js"></script>
-  <script src="./visualization.js"></script>
+
+<div id="viz"></div>
+
+<h1>Hauptstädte Europas</h1>
+
+<ul class="facts">
+    <li>Die Karte zeigt dass Paris mehr Einwohner als Lodon hat.</li>
+    <li>Die meisten Einwohner hat Moskau, Russland.</li>
+    <li> Die Projektion hat mehr Haupstädte als Länder in Europa.</li>
+    <li>Kosovo hat in dieser Projektion keine Hauptstadt.</li>
+</ul>
+
+<script src="https://unpkg.com/d3@5.9.7/dist/d3.min.js"></script>
+<script src="https://unpkg.com/d3-geo@1.11.6/dist/d3-geo.min.js"></script>
+<script src="./visualization.js"></script>
 </body>
 </html>

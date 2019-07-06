@@ -1,81 +1,84 @@
 document.addEventListener("DOMContentLoaded", () => {
-    d3.json("/countries.json").then(countries => {
-        d3.csv("/cities.csv").then(cities => {
-            // Geografische Formen sind in `countries.features`
 
-            // Städtedaten sind in `cities`
+    d3.json("/countries.json")
+        .then(countries => {
+            d3.csv("/cities.csv")
+                .then(cities => {
+                    // Geografische Formen sind in `countries.features`
 
-            // ========================================
+                    // Städtedaten sind in `cities`
 
-            // Definiere die Breite (width) und Höhe (height) deiner Visualisierung `800x600`
+                    // ========================================
 
-            const width = 800;
-            const height = 400;
+                    // Definiere die Breite (width) und Höhe (height) deiner Visualisierung `800x600`
 
-            // Hole den #viz container aus dem DOM mit `d3.select()`
+                    const width = 1600;
+                    const height = 800;
 
-            const container = d3.select("#viz");
+                    // Hole den #viz container aus dem DOM mit `d3.select()`
 
-            // Erstelle eine SVG node mit den Dimensionen `800x600`
+                    const container = d3.select("#viz");
 
-            const svg = container
-                .append("svg")
-                .attr("width", width)
-                .attr("height", height)
-                .style("background-color", "black");
+                    // Erstelle eine SVG node mit den Dimensionen `800x600`
 
-            // Konfiguriere eine Kartenprojektion
+                    const svg = container
+                        .append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
+                        .style("background-color", "black");
 
-            const projection = d3
-                .geoAlbers()
-                .rotate([-20.0, 0.0])
-                .center([0.0, 52.0])
-                .translate([width / 2, height / 2])
-                .scale(700);
+                    // Konfiguriere eine Kartenprojektion
 
-            // Erstelle einene Pfadgenerator mit `d3.geoPath()`
+                    const projection = d3
+                        .geoAlbers()
+                        .rotate([-10.0, 0.0])
+                        .center([0.0, 52.0])
+                        .translate([width / 2, height / 2])
+                        .scale(700);
 
-            const path = d3.geoPath().projection(projection);
+                    // Erstelle einene Pfadgenerator mit `d3.geoPath()`
 
-            // Optional: Erstelle ein Gradnetz mit `d3.geoGraticule()()`
+                    const path = d3.geoPath().projection(projection);
 
-            const graticule = d3.geoGraticule()();
+                    // Optional: Erstelle ein Gradnetz mit `d3.geoGraticule()()`
 
-            const graticulePath = svg
-                .append("path")
-                .attr("d", path(graticule))
-                .attr("stroke", "#DDD")
-                .attr("stroke-width", 0.5)
-                .attr("fill", "transparent");
+                    const graticule = d3.geoGraticule()();
 
-            // Binde `countries.features` an Pfade
+                    const graticulePath = svg
+                        .append("path")
+                        .attr("d", path(graticule))
+                        .attr("stroke", "#DDD")
+                        .attr("stroke-width", 0.5)
+                        .attr("fill", "#FFFFFF");
 
-            const mycountries = svg
-                .selectAll("path")
-                .data(countries.features)
-                .enter()
-                .append("path")
-                .attr("d", d => path(d))
-                .attr("fill", "grey")
-                .attr("stroke", "#DDD")
-                .attr("stroke-width", 0.5);
+                    // Binde `countries.features` an Pfade
 
-            // Binde `cities` an Kreise
+                    const mycountries = svg
+                        .selectAll("path")
+                        .data(countries.features)
+                        .enter()
+                        .append("path")
+                        .attr("d", d => path(d))
+                        .attr("fill", "#D8D8D8")
+                        .attr("stroke", "#979797")
+                        .attr("stroke-width", 0.5);
 
-            const mycities = svg
-                .selectAll("circle")
-                .data(cities)
-                .enter()
-                .append("circle")
-                .attr("cx", d => projection([d.lon, d.lat])[0])
-                .attr("cy", d => projection([d.lon, d.lat])[1])
-                .attr("r", d => d.size)
-                .attr("fill", "#646464")
-                .on("click", d => {
-                    console.log("Data: ", d);
+                    // Binde `cities` an Kreise
+
+                    const mycities = svg
+                        .selectAll("circle")
+                        .data(cities)
+                        .enter()
+                        .append("circle")
+                        .attr("cx", d => projection([d.lon, d.lat])[0])
+                        .attr("cy", d => projection([d.lon, d.lat])[1])
+                        .attr("r", d => d.size)
+                        .attr("fill", "rgba(245, 90, 14, 0.6)")
+                        .on("click", d => {
+                            console.log("Data: ", d);
+                        });
+
+                    // ========================================
                 });
-
-            // ========================================
         });
-    });
 });

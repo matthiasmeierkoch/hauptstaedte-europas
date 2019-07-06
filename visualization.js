@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .attr("cx", d => projection([d.lon, d.lat])[0])
                 .attr("cy", d => projection([d.lon, d.lat])[1])
                 .attr("r", d => d.size)
-                .attr("fill", "lightgrey")
+                .attr("fill", "#646464")
                 .on("click", d => {
                     console.log("Data: ", d);
                 });

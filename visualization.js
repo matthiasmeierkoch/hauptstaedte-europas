@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     // Binde `countries.features` an Pfade
 
-                    const mycountries = svg
+                    const Countries = svg
                         .selectAll("path")
                         .data(countries.features)
                         .enter()
@@ -65,8 +65,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     // Binde `cities` an Kreise
 
+                    const sizeScale = d3.scaleLinear()
+                        .domain([1, 12410])
+                        .range([1, 50]);
 
-                    const mycities = svg
+                    const Cities = svg
                         .selectAll("circle")
                         .data(cities)
                         .enter()
@@ -74,18 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         .attr("cx", d => projection([d.lon, d.lat])[0])
                         .attr("cy", d => projection([d.lon, d.lat])[1])
                         .attr("r", function (d) {
-                            const scale = d3.scaleLinear()
-                                .domain([1, 12410])
-                                .range([1, 50]);
-
-                            console.log(d.pop_in_k);
-                            return scale(d.pop_in_k)
-
+                            return sizeScale(d.pop_in_k)
                         })
-                            .attr("fill", "rgba(245, 90, 14, 0.6)")
-                            .on("click", d => {
-                                console.log("Data: ", d);
-                            });
+                        .attr("fill", "rgba(245, 90, 14, 0.6)")
+                        .on("click", d => {
+                            console.log("Data: ", d);
+                        });
 
                     // ========================================
                 });
